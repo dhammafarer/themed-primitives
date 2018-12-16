@@ -1,0 +1,40 @@
+{
+  "name": "themed-primitives",
+  "version": "1.0.0",
+  "description": "primitives based on a theme and styled-components",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "tsc",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhammafarer/themed-primitives.git"
+  },
+  "keywords": [
+    "styled-components",
+    "primitives"
+  ],
+  "author": "Pawel Lisewski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dhammafarer/themed-primitives/issues"
+  },
+  "homepage": "https://github.com/dhammafarer/themed-primitives#readme",
+  "devDependencies": {
+    "@types/chroma-js": "^1.4.0",
+    "@types/jest": "^23.3.10",
+    "@types/ramda": "^0.25.44",
+    "@types/styled-components": "^4.1.4",
+    "chroma-js": "^2.0.2",
+    "jest": "^23.6.0",
+    "prettier": "^1.15.3",
+    "ramda": "^0.26.1",
+    "styled-components": "^4.1.2",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.11.0",
+    "typescript": "^3.2.2"
+  }
+}
