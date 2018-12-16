@@ -49,6 +49,8 @@ const makeList = (list: DirectionCode[]) => (pref: string) =>
   map(prefixProp(pref), list);
 
 // helper function to get a property by applying a list of getter functions
+// @ts-ignore
+// typescript doesn't undrestand this
 const getEither = reduce(either, isNil);
 
 // extract the property with direction value from props

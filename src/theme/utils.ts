@@ -1,4 +1,4 @@
-import chroma from "chroma-js";
+import * as chroma from "chroma-js";
 
 export const darken = (color: string) => (v: number) =>
   chroma(color)
