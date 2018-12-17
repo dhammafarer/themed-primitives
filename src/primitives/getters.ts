@@ -1,76 +1,85 @@
-import {
-  complement,
-  isEmpty,
-  compose,
-  reduce,
-  either,
-  map,
-  prop,
-  concat,
-  identity,
-  ifElse,
-  always,
-  isNil,
-} from "ramda";
+import { Scale, fns } from "../theme";
+import { getWithDirections } from "./getWithDirections";
+import { getProperty } from "./getProperty";
+import { prop, identity } from "ramda";
+import { template, responsiveTemplate } from "./templates";
 
-// css property template
-const template = (key: string, val: string, fn: any, theme: any) =>
-  `${key}: ${fn(val)};`;
+const getSimple = getProperty(template);
+const getLiteral = getSimple(() => identity);
+const getResponsive = getProperty(responsiveTemplate);
 
-// parse props to build a css property as a string
-// fn is a function that interprets the property value,
-// eg. a scale-based property from theme
-const getP = (tfn: any) => (fn: any) => (getter: any) => (property: string) => (
-  props: any
-) =>
-  ifElse(isNil, always(""), x =>
-    tfn(property, x, fn(props.theme), props.theme)
-  )(getter(props));
+// directions map
+const directionsMap = [
+  { dir: "left", l: ["l", "x", ""] },
+  { dir: "right", l: ["r", "x", ""] },
+  { dir: "top", l: ["t", "y", ""] },
+  { dir: "bottom", l: ["b", "y", ""] },
+];
 
-// a getter for literal property values
-const getProperty = getP(template);
-const getLiteral = getProperty(() => identity);
+const getDirectionalProperty = getWithDirections(directionsMap)(
+  responsiveTemplate
+)(fns.space);
 
-type Direction = "right" | "left" | "top" | "bottom";
-type DirectionCode = "r" | "l" | "t" | "b" | "x" | "y" | "";
+export const getPadding = getDirectionalProperty("padding");
+export const getMargins = getDirectionalProperty("margin");
 
-// prefix each DirectionCode with property identifier, e.g. pr, ml, etc.
-const prefixProp = (pref: string) =>
-  compose(
-    prop,
-    concat(pref)
-  );
+const getFromColor = getSimple(fns.color);
+export const getBackground = getFromColor(prop("bg"))("background");
+export const getColor = getFromColor(prop("color"))("color");
+export const getBorderColor = getFromColor(prop("borderColor"))("border-color");
+export const getBorderLeftColor = getFromColor(prop("blc"))(
+  "border-left-color"
+);
+export const getBorderRightColor = getFromColor(prop("brc"))(
+  "border-right-color"
+);
+export const getBorderTopColor = getFromColor(prop("btc"))("border-top-color");
+export const getBorderBottomColor = getFromColor(prop("bbc"))(
+  "border-bottom-color"
+);
 
-// make a prefix to identify property
-const getPrefix = (property: string) => property.slice(0, 1);
+export const getBoxShadow = getSimple(fns.shadow)(prop("shadow"))("box-shadow");
 
-// make a prefixed priority list of direction codes
-const makeList = (list: DirectionCode[]) => (pref: string) =>
-  map(prefixProp(pref), list);
+export const getBorder = getWithDirections(directionsMap)(responsiveTemplate)(
+  fns.border
+)("border");
 
-// helper function to get a property by applying a list of getter functions
-// @ts-ignore
-// typescript doesn't undrestand this
-const getEither = reduce(either, isNil);
+export const getBorderRadius = getSimple(fns.radius)(prop("radius"))(
+  "border-radius"
+);
 
-// extract the property with direction value from props
-const getDirValue = (l: DirectionCode[]) => (p: string) =>
-  getEither(makeList(l)(getPrefix(p)));
+export const getFontWeight = getSimple(fns.fontWeight)(prop("fontWeight"))(
+  "font-weight"
+);
+export const getFontFamily = getSimple(fns.fontFamily)(prop("fontFamily"))(
+  "font-family"
+);
 
-// build a css property with direction
-const getDirectionalProperty = (tfn: any) => (fn: any) => (dp: {
-  dir: Direction;
-  l: DirectionCode[];
-}) => (property: string) =>
-  getP(tfn)(fn)(getDirValue(dp.l)(property))(`${property}-${dp.dir}`);
+export const getLineHeight = getSimple(fns.lineHeight)(prop("lineHeight"))(
+  "line-height"
+);
+export const getLetterSpacing = getSimple(fns.letterSpacing)(
+  prop("letterSpacing")
+)("letter-spacing");
+export const getTextTransform = getLiteral(prop("textTransform"))(
+  "text-transform"
+);
+export const getTextAlign = getLiteral(prop("textAlign"))("text-align");
+export const getOpacity = getLiteral(prop("opacity"))("opacity");
+export const getFlexDirection = getLiteral(prop("flexDirection"))(
+  "flex-direction"
+);
+export const getFlexWrap = getLiteral(prop("flexWrap"))("flex-wrap");
+export const getJustifyContent = getLiteral(prop("justifyContent"))(
+  "justify-content"
+);
+export const getAlignItems = getLiteral(prop("alignItems"))("align-items");
 
-// build a set of css properties for all directions
-const getWithDirections = (dps: any[]) => (tfn: any) => (fn: any) => (
-  property: string
-) => (props: any) =>
-  dps
-    .map(d => getDirectionalProperty(tfn)(fn)(d)(property)(props))
-    .filter(complement(isEmpty))
-    .join("\n");
+type Width = string | Scale;
+const parseWidth = (theme: any) => (v: Width) =>
+  typeof v === "number" ? `${v * 100}%` : v;
+export const getWidth = getResponsive(parseWidth)(prop("width"))("width");
 
-export { getP, getProperty, getLiteral, getWithDirections };
+export const getFontSize = getResponsive(fns.fontSize)(prop("fontSize"))(
+  "font-size"
+);

@@ -4,13 +4,11 @@ import baseStyled, {
   ThemedStyledInterface,
 } from "styled-components";
 
+import { fns } from "./accessors";
 import { defaultTheme, Theme, Scale } from "./defaultTheme";
-import { fns } from "./functions";
-import { pathOr, mergeDeepRight } from "ramda";
-
-const makeTheme = (theme: any) => mergeDeepRight(defaultTheme, theme);
+import { makeTheme } from "./makeTheme";
 
 const styled = baseStyled as ThemedStyledInterface<Theme>;
 const css = baseCss as ThemedCssFunction<Theme>;
 
-export { fns, defaultTheme, styled, css, Scale, Theme, makeTheme };
+export { styled, css, defaultTheme, Theme, makeTheme, Scale, fns };

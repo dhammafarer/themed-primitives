@@ -1,4 +1,4 @@
-export { makeTheme, styled, css, Scale, Theme } from "./theme";
+export { defaultTheme, makeTheme, Theme, Scale, css, styled } from "./theme";
 export {
   Box,
   BoxProps,
