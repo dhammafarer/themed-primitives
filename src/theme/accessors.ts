@@ -1,8 +1,10 @@
 import { Theme, Scale } from "./defaultTheme";
-import { pathOr } from "ramda";
+import { path, pathOr } from "ramda";
 
-const fromThemeScaled = (prop: string) => (theme: Theme) => (val: Scale) =>
-  theme[prop][val];
+type Prop = keyof Theme;
+
+const fromThemeScaled = (prop: Prop) => (theme: Theme) => (val: Scale) =>
+  path([prop, val], theme);
 
 const space = fromThemeScaled("sizes");
 const fontSize = fromThemeScaled("fontSizes");
