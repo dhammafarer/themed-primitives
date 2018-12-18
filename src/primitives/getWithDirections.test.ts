@@ -1,11 +1,13 @@
 import { identity } from "ramda";
 import { getWithDirections } from "./getWithDirections";
+import { responsiveTemplate } from "./templates";
+
+const theme = { devices: ["A", "B", "C"] };
 
 describe("getWithDirections", () => {
   test("outputs a set of properties with directions", () => {
-    const props = { pl: 1, px: 2 };
-    const tfn = (k: number, v: number, fn: any, theme: any) =>
-      `${k}: ${fn(theme)(v)};`;
+    const props = { theme, pl: 1, px: 2 };
+    const tfn = responsiveTemplate;
     const fn = (theme: any) => identity;
     const property = "padding";
     const dps = [
