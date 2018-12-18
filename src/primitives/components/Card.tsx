@@ -1,5 +1,6 @@
 import * as React from "react";
 import { styled, css, Scale } from "../../theme";
+import { ResponsiveScale, ResponsiveString } from "./Box";
 import { Flex, flex, FlexProps } from "./Flex";
 import {
   getOpacity,
@@ -13,14 +14,14 @@ interface CardProps extends FlexProps {
   opacity?: number;
   shadow?: Scale;
   radius?: Scale;
-  b?: Scale;
-  br?: Scale;
-  bl?: Scale;
-  bt?: Scale;
-  bb?: Scale;
-  bx?: Scale;
-  by?: Scale;
-  borderColor?: string;
+  b?: ResponsiveScale;
+  br?: ResponsiveScale;
+  bl?: ResponsiveScale;
+  bt?: ResponsiveScale;
+  bb?: ResponsiveScale;
+  bx?: ResponsiveScale;
+  by?: ResponsiveScale;
+  borderColor?: ResponsiveString;
 }
 
 const card = css<CardProps>`

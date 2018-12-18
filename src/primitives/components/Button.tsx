@@ -18,8 +18,8 @@ import {
 interface ButtonProps extends BoxProps {
   shadow?: Scale;
   radius?: Scale;
-  b?: Scale;
-  borderColor?: string;
+  b?: ResponsiveScale;
+  borderColor?: ResponsiveString;
   fontFamily?: string;
   fontSize?: ResponsiveScale;
   fontWeight?: ResponsiveScale;
