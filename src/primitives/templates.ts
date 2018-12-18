@@ -1,15 +1,13 @@
 import { isEmpty } from "ramda";
 import { TemplateFn } from "./getProperty";
 
-export const template: TemplateFn = (key, val, fn, theme) =>
-  isEmpty(val) ? "" : `${key}: ${fn(theme)(val)};`;
+export const template: TemplateFn = (key, val, devices) =>
+  isEmpty(val) ? "" : `${key}: ${val};`;
 
-export const responsiveTemplate: TemplateFn = (key, val, fn, theme) => {
+export const responsiveTemplate: TemplateFn = (key, val, devices) => {
   if (Array.isArray(val)) {
-    return val
-      .map((v, i) => `${theme.devices[i]} { ${key}: ${fn(theme)(v)}; }`)
-      .join("\n");
+    return val.map((v, i) => `${devices[i]} { ${key}: ${v}; }`).join("\n");
   } else {
-    return template(key, val, fn, theme);
+    return template(key, val, devices);
   }
 };
