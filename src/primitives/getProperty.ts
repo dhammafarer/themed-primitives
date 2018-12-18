@@ -1,4 +1,4 @@
-import { map, ifElse, always, isNil } from "ramda";
+import { compose, map, ifElse, always, isNil } from "ramda";
 
 type Key = string;
 type Value = any;
@@ -10,13 +10,23 @@ type Theme = any;
 type Devices = string[];
 type TemplateFn = (k: Key, val: PropValue, devices: Devices) => string;
 
+const guard = (fn: any) => ifElse(isNil, always(""), fn);
+const processVal = (fn: any) => ifElse(Array.isArray, map(fn), fn);
+const buildTemplate = (tfn: TemplateFn, key: Key, devices: Devices) => (
+  val: any
+) => tfn(key, val, devices);
+
 export const getProperty = (tfn: TemplateFn) => (fn: Accessor) => (
   reader: PropReader
 ) => (key: Key) => (props: Props) =>
-  ifElse(isNil, always(""), val => {
-    const f = fn(props.theme);
-    const processed = Array.isArray(val) ? map(f, val) : f(val);
-    return tfn(key, processed, props.theme.devices);
-  })(reader(props));
+  compose(
+    guard(
+      compose(
+        buildTemplate(tfn, key, props.theme.devices),
+        processVal(fn(props.theme))
+      )
+    ),
+    reader
+  )(props);
 
 export { Accessor, Key, Props, TemplateFn };
