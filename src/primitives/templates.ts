@@ -1,18 +1,10 @@
 import { isEmpty } from "ramda";
+import { TemplateFn } from "./getProperty";
 
-type Fn<T, V> = (theme: T) => (val: V) => string | number;
-
-export const template = <T, V>(key: string, val: V, fn: Fn<T, V>, theme: T) =>
+export const template: TemplateFn = (key, val, fn, theme) =>
   isEmpty(val) ? "" : `${key}: ${fn(theme)(val)};`;
 
-type ResponsiveT = { devices: string[] };
-
-export const responsiveTemplate = <T extends ResponsiveT, V>(
-  key: string,
-  val: V | V[],
-  fn: Fn<T, V>,
-  theme: T
-) => {
+export const responsiveTemplate: TemplateFn = (key, val, fn, theme) => {
   if (Array.isArray(val)) {
     return val
       .map((v, i) => `${theme.devices[i]} { ${key}: ${fn(theme)(v)}; }`)

@@ -1,3 +1,4 @@
+import { getProperty, TemplateFn, Accessor, Props, Key } from "./getProperty";
 import {
   complement,
   isEmpty,
@@ -12,16 +13,6 @@ import {
   isNil,
 } from "ramda";
 
-// parse props to build a css property as a string
-// fn is a function that interprets the property value,
-// eg. a scale-based property from theme
-const getP = (tfn: any) => (fn: any) => (getter: any) => (property: string) => (
-  props: any
-) =>
-  ifElse(isNil, always(""), x => tfn(property, x, fn, props.theme))(
-    getter(props)
-  );
-
 type Direction = "right" | "left" | "top" | "bottom";
 type DirectionCode = "r" | "l" | "t" | "b" | "x" | "y" | "";
 
@@ -33,7 +24,7 @@ const prefixProp = (pref: string) =>
   );
 
 // make a prefix to identify property
-const getPrefix = (property: string) => property.slice(0, 1);
+const getPrefix = (property: Key) => property.slice(0, 1);
 
 // make a prefixed priority list of direction codes
 const makeList = (list: DirectionCode[]) => (pref: string) =>
@@ -48,18 +39,18 @@ const getDirValue = (l: DirectionCode[]) => (p: string) =>
   getEither(makeList(l)(getPrefix(p)));
 
 // build a css property with direction
-const getDirectionalProperty = (tfn: any) => (fn: any) => (dp: {
+const getDirectionalProperty = (tfn: TemplateFn) => (fn: Accessor) => (dp: {
   dir: Direction;
   l: DirectionCode[];
-}) => (property: string) =>
-  getP(tfn)(fn)(getDirValue(dp.l)(property))(`${property}-${dp.dir}`);
+}) => (key: Key) =>
+  getProperty(tfn)(fn)(getDirValue(dp.l)(key))(`${key}-${dp.dir}`);
 
 // build a set of css properties for all directions
-const getWithDirections = (dps: any[]) => (tfn: any) => (fn: any) => (
-  property: string
-) => (props: any) =>
+const getWithDirections = (dps: any[]) => (tfn: TemplateFn) => (
+  fn: Accessor
+) => (key: Key) => (props: Props) =>
   dps
-    .map(d => getDirectionalProperty(tfn)(fn)(d)(property)(props))
+    .map(d => getDirectionalProperty(tfn)(fn)(d)(key)(props))
     .filter(complement(isEmpty))
     .join("\n");
-export { getP, getWithDirections };
+export { getProperty, getWithDirections };
