@@ -2,11 +2,10 @@ import { Scale, fns } from "../theme";
 import { getWithDirections } from "./getWithDirections";
 import { getProperty } from "./getProperty";
 import { prop, identity } from "ramda";
-import { template, responsiveTemplate } from "./templates";
+import { responsiveTemplate } from "./templates";
 
-const getSimple = getProperty(template);
-const getLiteral = getSimple(() => identity);
 const getResponsive = getProperty(responsiveTemplate);
+const getLiteral = getResponsive(() => identity);
 
 // directions map
 const directionsMap = [
@@ -23,7 +22,7 @@ const getDirectionalProperty = getWithDirections(directionsMap)(
 export const getPadding = getDirectionalProperty("padding");
 export const getMargins = getDirectionalProperty("margin");
 
-const getFromColor = getSimple(fns.color);
+const getFromColor = getResponsive(fns.color);
 export const getBackground = getFromColor(prop("bg"))("background");
 export const getColor = getFromColor(prop("color"))("color");
 export const getBorderColor = getFromColor(prop("borderColor"))("border-color");
@@ -38,27 +37,29 @@ export const getBorderBottomColor = getFromColor(prop("bbc"))(
   "border-bottom-color"
 );
 
-export const getBoxShadow = getSimple(fns.shadow)(prop("shadow"))("box-shadow");
+export const getBoxShadow = getResponsive(fns.shadow)(prop("shadow"))(
+  "box-shadow"
+);
 
 export const getBorder = getWithDirections(directionsMap)(responsiveTemplate)(
   fns.border
 )("border");
 
-export const getBorderRadius = getSimple(fns.radius)(prop("radius"))(
+export const getBorderRadius = getResponsive(fns.radius)(prop("radius"))(
   "border-radius"
 );
 
-export const getFontWeight = getSimple(fns.fontWeight)(prop("fontWeight"))(
+export const getFontWeight = getResponsive(fns.fontWeight)(prop("fontWeight"))(
   "font-weight"
 );
-export const getFontFamily = getSimple(fns.fontFamily)(prop("fontFamily"))(
+export const getFontFamily = getResponsive(fns.fontFamily)(prop("fontFamily"))(
   "font-family"
 );
 
-export const getLineHeight = getSimple(fns.lineHeight)(prop("lineHeight"))(
+export const getLineHeight = getResponsive(fns.lineHeight)(prop("lineHeight"))(
   "line-height"
 );
-export const getLetterSpacing = getSimple(fns.letterSpacing)(
+export const getLetterSpacing = getResponsive(fns.letterSpacing)(
   prop("letterSpacing")
 )("letter-spacing");
 export const getTextTransform = getLiteral(prop("textTransform"))(
