@@ -6,7 +6,6 @@ type Props = any;
 type PropValue = any;
 type PropReader = (p: Props) => PropValue;
 type Accessor = (theme: any) => (val: PropValue) => Value;
-type Theme = any;
 type Devices = string[];
 type TemplateFn = (k: Key, val: PropValue, devices: Devices) => string;
 
