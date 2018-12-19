@@ -1,9 +1,26 @@
+import { Theme } from "../theme/defaultTheme";
 import { identity } from "ramda";
 import { getWithDirections } from "./getWithDirections";
 import { responsiveTemplate } from "./templates";
+import { colors } from "../theme/colors";
 
 const theme = { devices: ["A", "B", "C"] };
-const defaultTheme = {};
+const defaultTheme: Theme = {
+  sizes: ["1"],
+  colors,
+  borders: ["1"],
+  radii: ["1"],
+  devices: ["A", "B"],
+  dimensions: ["1"],
+  fonts: { sans: "x", serif: "x" },
+  fontSizes: ["1"],
+  fontWeights: [1],
+  lineHeights: [1],
+  letterSpacings: ["1"],
+  maxWidth: "1",
+  shadows: ["1"],
+  zIndexes: [1],
+};
 
 describe("getWithDirections", () => {
   test("outputs a set of properties with directions", () => {

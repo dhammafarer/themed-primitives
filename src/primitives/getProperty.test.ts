@@ -1,10 +1,27 @@
 import { always, identity, prop } from "ramda";
 import { getProperty, TemplateFn } from "./getProperty";
 import { responsiveTemplate } from "./templates";
+import { Theme } from "../theme/defaultTheme";
+import { colors } from "../theme/colors";
 
 const devices = ["A", "B", "C"];
 const theme = { devices };
-const defaultTheme = {};
+const defaultTheme: Theme = {
+  sizes: ["1"],
+  colors,
+  borders: ["1"],
+  radii: ["1"],
+  devices: ["A", "B"],
+  dimensions: ["1"],
+  fonts: { sans: "x", serif: "x" },
+  fontSizes: ["1"],
+  fontWeights: [1],
+  lineHeights: [1],
+  letterSpacings: ["1"],
+  maxWidth: "1",
+  shadows: ["1"],
+  zIndexes: [1],
+};
 
 describe("getProperty", () => {
   test("outputs empty string when the property isn't found", () => {
@@ -65,12 +82,12 @@ describe("getProperty", () => {
   test("works without a theme", () => {
     const props = { width: 0 };
     const tfn = responsiveTemplate;
-    const df = { devices, sizes: ["100px"] };
+    const df = defaultTheme;
     const fn = (theme: any) => (v: any) => theme.sizes[v];
     const getter = prop("width");
     const property = "width";
 
-    const expected = "width: 100px;";
+    const expected = "width: 1;";
 
     expect(getProperty(df)(tfn)(fn)(getter)(property)(props)).toBe(expected);
   });

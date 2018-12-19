@@ -2,36 +2,6 @@ import { shadows } from "./shadows";
 import { colors } from "./colors";
 import { unit } from "./utils";
 
-type ScaledStr = string[];
-type ScaledNum = number[];
-
-interface Fonts {
-  [key: string]: string;
-}
-
-interface Colors {
-  [key: string]: {
-    [key: string]: string;
-  };
-}
-
-interface Theme {
-  fonts?: Fonts;
-  colors?: Colors;
-  sizes?: ScaledStr;
-  fontSizes?: ScaledStr;
-  fontWeights?: ScaledNum;
-  dimensions?: ScaledStr;
-  zIndexes?: ScaledNum;
-  borders?: ScaledStr;
-  radii?: ScaledStr;
-  lineHeights?: ScaledNum;
-  letterSpacings?: ScaledStr;
-  devices?: ScaledStr;
-  maxWidth?: string;
-  shadows?: ScaledStr;
-}
-
 type Scale = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 const sizes = unit("px", [0, 4, 8, 16, 32, 64, 128, 256, 512]);
@@ -59,7 +29,7 @@ const fonts = {
 
 const maxWidth = "1440px";
 
-const defaultTheme: Theme = {
+const defaultTheme = {
   sizes,
   colors,
   borders,
@@ -75,5 +45,7 @@ const defaultTheme: Theme = {
   shadows,
   zIndexes,
 };
+
+type Theme = typeof defaultTheme;
 
 export { defaultTheme, Scale, Theme };
