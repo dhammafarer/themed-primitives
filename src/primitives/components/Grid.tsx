@@ -30,24 +30,24 @@ import {
 } from "../getters";
 
 interface GridProps extends BoxProps {
-  display: "grid" | "inline-grid";
-  tmpCols: ResponsiveString;
-  tmpRows: ResponsiveString;
-  tmpAreas: ResponsiveString;
-  tmp: ResponsiveString;
-  colGap: ResponsiveEither;
-  rowGap: ResponsiveEither;
-  gap: ResponsiveEither;
-  justifyContent: ResponsiveString;
-  alignContent: ResponsiveString;
-  placeContent: ResponsiveString;
-  alignItems: ResponsiveString;
-  justifyItems: ResponsiveString;
-  placeItems: ResponsiveString;
-  autoCols: ResponsiveString;
-  autoRows: ResponsiveString;
-  autoFlow: ResponsiveString;
-  grid: ResponsiveString;
+  display?: "grid" | "inline-grid";
+  tmpCols?: ResponsiveString;
+  tmpRows?: ResponsiveString;
+  tmpAreas?: ResponsiveString;
+  tmp?: ResponsiveString;
+  colGap?: ResponsiveEither;
+  rowGap?: ResponsiveEither;
+  gap?: ResponsiveEither;
+  justifyContent?: ResponsiveString;
+  alignContent?: ResponsiveString;
+  placeContent?: ResponsiveString;
+  alignItems?: ResponsiveString;
+  justifyItems?: ResponsiveString;
+  placeItems?: ResponsiveString;
+  autoCols?: ResponsiveString;
+  autoRows?: ResponsiveString;
+  autoFlow?: ResponsiveString;
+  grid?: ResponsiveString;
 }
 
 const grid = css<GridProps>`
