@@ -3,6 +3,7 @@ import { getWithDirections } from "./getWithDirections";
 import { fns } from "./accessors";
 import { prop, is, gte, ifElse, identity } from "ramda";
 import { responsiveTemplate } from "./templates";
+import { defaultTheme } from "../theme/defaultTheme";
 
 const directionsMap = [
   { dir: "left", l: ["l", "x", ""] },
@@ -11,7 +12,7 @@ const directionsMap = [
   { dir: "bottom", l: ["b", "y", ""] },
 ];
 
-const getResponsive = getProperty(responsiveTemplate);
+const getResponsive = getProperty(defaultTheme)(responsiveTemplate);
 const getLiteral = getResponsive(() => identity);
 
 const numOrLiteral = (f: any) => (theme: any) =>
@@ -19,7 +20,7 @@ const numOrLiteral = (f: any) => (theme: any) =>
 
 const parseSpace = numOrLiteral(fns.space);
 
-const getDirectionalProperty = getWithDirections(directionsMap)(
+const getDirectionalProperty = getWithDirections(directionsMap)(defaultTheme)(
   responsiveTemplate
 );
 

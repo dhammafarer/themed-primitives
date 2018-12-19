@@ -1,4 +1,5 @@
 import { getProperty, TemplateFn, Accessor, Props, Key } from "./getProperty";
+import { Theme } from "../theme/defaultTheme";
 import {
   complement,
   isEmpty,
@@ -39,18 +40,17 @@ const getDirValue = (l: DirectionCode[]) => (p: string) =>
   getEither(makeList(l)(getPrefix(p)));
 
 // build a css property with direction
-const getDirectionalProperty = (tfn: TemplateFn) => (fn: Accessor) => (dp: {
-  dir: Direction;
-  l: DirectionCode[];
-}) => (key: Key) =>
-  getProperty(tfn)(fn)(getDirValue(dp.l)(key))(`${key}-${dp.dir}`);
+const getDirectionalProperty = (df: Theme) => (tfn: TemplateFn) => (
+  fn: Accessor
+) => (dp: { dir: Direction; l: DirectionCode[] }) => (key: Key) =>
+  getProperty(df)(tfn)(fn)(getDirValue(dp.l)(key))(`${key}-${dp.dir}`);
 
 // build a set of css properties for all directions
-const getWithDirections = (dps: any[]) => (tfn: TemplateFn) => (
+const getWithDirections = (dps: any[]) => (df: Theme) => (tfn: TemplateFn) => (
   fn: Accessor
 ) => (key: Key) => (props: Props) =>
   dps
-    .map(d => getDirectionalProperty(tfn)(fn)(d)(key)(props))
+    .map(d => getDirectionalProperty(df)(tfn)(fn)(d)(key)(props))
     .filter(complement(isEmpty))
     .join("\n");
 export { getProperty, getWithDirections };
