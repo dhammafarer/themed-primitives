@@ -1,4 +1,4 @@
-import { getWidth, getColor } from "./ts";
+import { getWidth, getColor } from "./getters";
 
 import { fns } from "../theme/accessors";
 import { defaultTheme } from "../theme/defaultTheme";
@@ -6,7 +6,8 @@ import { responsiveTemplate } from "./templates";
 import { prop } from "ramda";
 
 const devices = ["A", "B", "C"];
-const theme = defaultTheme;
+const colors = { white: { main: "#fff" } };
+const theme = { colors, devices };
 
 describe("getWidth", () => {
   test("parses fractions as percentages", () => {
@@ -34,6 +35,13 @@ describe("getColor", () => {
   test("works with simple strings", () => {
     const props = { theme, width: 1, color: "red" };
     const expected = "color: red;";
+
+    expect(getColor(props)).toBe(expected);
+  });
+
+  test("works with complex strings", () => {
+    const props = { theme, width: 1, color: "white.main" };
+    const expected = "color: #fff;";
 
     expect(getColor(props)).toBe(expected);
   });

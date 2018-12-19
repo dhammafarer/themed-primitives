@@ -1,13 +1,9 @@
-import { Scale, fns } from "../theme";
-import { getWithDirections } from "./getWithDirections";
 import { getProperty } from "./getProperty";
-import { prop, identity } from "ramda";
+import { getWithDirections } from "./getWithDirections";
+import { fns } from "../theme/accessors";
+import { prop, is, gte, ifElse, identity } from "ramda";
 import { responsiveTemplate } from "./templates";
 
-const getResponsive = getProperty(responsiveTemplate);
-const getLiteral = getResponsive(() => identity);
-
-// directions map
 const directionsMap = [
   { dir: "left", l: ["l", "x", ""] },
   { dir: "right", l: ["r", "x", ""] },
@@ -15,72 +11,83 @@ const directionsMap = [
   { dir: "bottom", l: ["b", "y", ""] },
 ];
 
+const getResponsive = getProperty(responsiveTemplate);
+const getLiteral = getResponsive(() => identity);
+
+const numOrLiteral = (f: any) => (theme: any) =>
+  ifElse(is(Number), f(theme), identity);
+
+const parseSpace = numOrLiteral(fns.space);
+
 const getDirectionalProperty = getWithDirections(directionsMap)(
   responsiveTemplate
-)(fns.space);
-
-export const getPadding = getDirectionalProperty("padding");
-export const getMargins = getDirectionalProperty("margin");
-
-export const getFromColor = getResponsive(fns.color);
-export const getBackground = getFromColor(prop("bg"))("background");
-export const getColor = getFromColor(prop("color"))("color");
-export const getBorderColor = getFromColor(prop("borderColor"))("border-color");
-export const getBorderLeftColor = getFromColor(prop("blc"))(
-  "border-left-color"
-);
-export const getBorderRightColor = getFromColor(prop("brc"))(
-  "border-right-color"
-);
-export const getBorderTopColor = getFromColor(prop("btc"))("border-top-color");
-export const getBorderBottomColor = getFromColor(prop("bbc"))(
-  "border-bottom-color"
 );
 
-export const getBoxShadow = getResponsive(fns.shadow)(prop("shadow"))(
-  "box-shadow"
-);
+// directional
+const getPadding = getDirectionalProperty(parseSpace)("padding");
+const getMargins = getDirectionalProperty(parseSpace)("margin");
+const getBorder = getDirectionalProperty(fns.border)("border");
 
-export const getBorder = getWithDirections(directionsMap)(responsiveTemplate)(
-  fns.border
-)("border");
+// width
+const handleLength = () => ifElse(gte(1), x => `${x * 100}%`, x => `${x}px`);
+const parseLength = numOrLiteral(handleLength);
+const getWidth = getResponsive(parseLength)(prop("width"))("width");
 
-export const getBorderRadius = getResponsive(fns.radius)(prop("radius"))(
+// colors
+const fromColor = getResponsive(fns.color);
+const getColor = fromColor(prop("color"))("color");
+const getBackground = fromColor(prop("bg"))("background");
+const getBorderColor = fromColor(prop("borderColor"))("border-color");
+
+//misc
+const getBoxShadow = getResponsive(fns.shadow)(prop("shadow"))("box-shadow");
+const getOpacity = getLiteral(prop("opacity"))("opacity");
+const getBorderRadius = getResponsive(fns.radius)(prop("radius"))(
   "border-radius"
 );
 
-export const getFontWeight = getResponsive(fns.fontWeight)(prop("fontWeight"))(
+// text
+const getFontSize = getResponsive(fns.fontSize)(prop("fontSize"))("font-size");
+const getFontWeight = getResponsive(fns.fontWeight)(prop("fontWeight"))(
   "font-weight"
 );
-export const getFontFamily = getResponsive(fns.fontFamily)(prop("fontFamily"))(
+const getFontFamily = getResponsive(fns.fontFamily)(prop("fontFamily"))(
   "font-family"
 );
-
-export const getLineHeight = getResponsive(fns.lineHeight)(prop("lineHeight"))(
+const getLineHeight = getResponsive(fns.lineHeight)(prop("lineHeight"))(
   "line-height"
 );
-export const getLetterSpacing = getResponsive(fns.letterSpacing)(
+const getLetterSpacing = getResponsive(fns.letterSpacing)(
   prop("letterSpacing")
 )("letter-spacing");
-export const getTextTransform = getLiteral(prop("textTransform"))(
-  "text-transform"
-);
-export const getTextAlign = getLiteral(prop("textAlign"))("text-align");
-export const getOpacity = getLiteral(prop("opacity"))("opacity");
-export const getFlexDirection = getLiteral(prop("flexDirection"))(
-  "flex-direction"
-);
-export const getFlexWrap = getLiteral(prop("flexWrap"))("flex-wrap");
-export const getJustifyContent = getLiteral(prop("justifyContent"))(
-  "justify-content"
-);
-export const getAlignItems = getLiteral(prop("alignItems"))("align-items");
+const getTextTransform = getLiteral(prop("textTransform"))("text-transform");
+const getTextAlign = getLiteral(prop("textAlign"))("text-align");
 
-type Width = string | Scale;
-const parseWidth = (theme: any) => (v: Width) =>
-  typeof v === "number" ? `${v * 100}%` : v;
-export const getWidth = getResponsive(parseWidth)(prop("width"))("width");
+//flex
+const getFlexWrap = getLiteral(prop("flexWrap"))("flex-wrap");
+const getFlexDirection = getLiteral(prop("flexDirection"))("flex-direction");
+const getJustifyContent = getLiteral(prop("justifyContent"))("justify-content");
+const getAlignItems = getLiteral(prop("alignItems"))("align-items");
 
-export const getFontSize = getResponsive(fns.fontSize)(prop("fontSize"))(
-  "font-size"
-);
+export {
+  getBorder,
+  getBorderColor,
+  getBorderRadius,
+  getColor,
+  getBackground,
+  getWidth,
+  getFontSize,
+  getFontFamily,
+  getFontWeight,
+  getTextAlign,
+  getTextTransform,
+  getLineHeight,
+  getLetterSpacing,
+  getPadding,
+  getMargins,
+  getFlexWrap,
+  getJustifyContent,
+  getAlignItems,
+  getBoxShadow,
+  getOpacity,
+};
