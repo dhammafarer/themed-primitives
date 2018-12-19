@@ -25,71 +25,91 @@ const getDirectionalProperty = getWithDirections(directionsMap)(defaultTheme)(
 );
 
 // directional
-const getPadding = getDirectionalProperty(parseSpace)("padding");
-const getMargins = getDirectionalProperty(parseSpace)("margin");
-const getBorder = getDirectionalProperty(fns.border)("border");
+export const getPadding = getDirectionalProperty(parseSpace)("padding");
+export const getMargins = getDirectionalProperty(parseSpace)("margin");
+export const getBorder = getDirectionalProperty(fns.border)("border");
 
 // width
 const handleLength = () => ifElse(gte(1), x => `${x * 100}%`, x => `${x}px`);
 const parseLength = numOrLiteral(handleLength);
-const getWidth = getResponsive(parseLength)(prop("width"))("width");
+export const getWidth = getResponsive(parseLength)(prop("width"))("width");
 
 // colors
 const fromColor = getResponsive(fns.color);
-const getColor = fromColor(prop("color"))("color");
-const getBackground = fromColor(prop("bg"))("background");
-const getBorderColor = fromColor(prop("borderColor"))("border-color");
+export const getColor = fromColor(prop("color"))("color");
+export const getBackground = fromColor(prop("bg"))("background");
+export const getBorderColor = fromColor(prop("borderColor"))("border-color");
 
 //misc
-const getBoxShadow = getResponsive(fns.shadow)(prop("shadow"))("box-shadow");
-const getOpacity = getLiteral(prop("opacity"))("opacity");
-const getBorderRadius = getResponsive(fns.radius)(prop("radius"))(
+export const getBoxShadow = getResponsive(fns.shadow)(prop("shadow"))(
+  "box-shadow"
+);
+export const getOpacity = getLiteral(prop("opacity"))("opacity");
+export const getBorderRadius = getResponsive(fns.radius)(prop("radius"))(
   "border-radius"
 );
 
 // text
-const getFontSize = getResponsive(fns.fontSize)(prop("fontSize"))("font-size");
-const getFontWeight = getResponsive(fns.fontWeight)(prop("fontWeight"))(
+export const getFontSize = getResponsive(fns.fontSize)(prop("fontSize"))(
+  "font-size"
+);
+export const getFontWeight = getResponsive(fns.fontWeight)(prop("fontWeight"))(
   "font-weight"
 );
-const getFontFamily = getResponsive(fns.fontFamily)(prop("fontFamily"))(
+export const getFontFamily = getResponsive(fns.fontFamily)(prop("fontFamily"))(
   "font-family"
 );
-const getLineHeight = getResponsive(fns.lineHeight)(prop("lineHeight"))(
+export const getLineHeight = getResponsive(fns.lineHeight)(prop("lineHeight"))(
   "line-height"
 );
-const getLetterSpacing = getResponsive(fns.letterSpacing)(
+export const getLetterSpacing = getResponsive(fns.letterSpacing)(
   prop("letterSpacing")
 )("letter-spacing");
-const getTextTransform = getLiteral(prop("textTransform"))("text-transform");
-const getTextAlign = getLiteral(prop("textAlign"))("text-align");
+export const getTextTransform = getLiteral(prop("textTransform"))(
+  "text-transform"
+);
+export const getTextAlign = getLiteral(prop("textAlign"))("text-align");
 
 //flex
-const getFlexWrap = getLiteral(prop("flexWrap"))("flex-wrap");
-const getFlexDirection = getLiteral(prop("flexDirection"))("flex-direction");
-const getJustifyContent = getLiteral(prop("justifyContent"))("justify-content");
-const getAlignItems = getLiteral(prop("alignItems"))("align-items");
+export const getFlexWrap = getLiteral(prop("flexWrap"))("flex-wrap");
+export const getFlexDirection = getLiteral(prop("flexDirection"))(
+  "flex-direction"
+);
+export const getJustifyContent = getLiteral(prop("justifyContent"))(
+  "justify-content"
+);
+export const getAlignItems = getLiteral(prop("alignItems"))("align-items");
 
-export {
-  getBorder,
-  getBorderColor,
-  getBorderRadius,
-  getColor,
-  getBackground,
-  getWidth,
-  getFontSize,
-  getFontFamily,
-  getFontWeight,
-  getTextAlign,
-  getTextTransform,
-  getLineHeight,
-  getLetterSpacing,
-  getPadding,
-  getMargins,
-  getFlexWrap,
-  getFlexDirection,
-  getJustifyContent,
-  getAlignItems,
-  getBoxShadow,
-  getOpacity,
-};
+// grid
+export const getDisplay = getLiteral(prop("display"))("display");
+export const getTemplateColumns = getLiteral(prop("tmpCols"))(
+  "grid-template-columns"
+);
+export const getTemplateRows = getLiteral(prop("tmpRows"))(
+  "grid-template-rows"
+);
+export const getTemplateAreas = getLiteral(prop("tmpAreas"))(
+  "grid-template-rows"
+);
+export const getTemplate = getLiteral(prop("tmp"))("grid-template");
+export const getColGap = getLiteral(prop("colGap"))("grid-column-gap");
+export const getRowGap = getLiteral(prop("rowGap"))("grid-row-gap");
+export const getGap = getLiteral(prop("gap"))("grid-gap");
+export const getGridJustifyContent = getLiteral(prop("justifyContent"))(
+  "justify-content"
+);
+export const getGridAlignContent = getLiteral(prop("alignContent"))(
+  "align-content"
+);
+export const getGridPlaceContent = getLiteral(prop("placeContent"))(
+  "place-content"
+);
+export const getGridJustifyItems = getLiteral(prop("justifyItems"))(
+  "justify-items"
+);
+export const getGridAlignItems = getLiteral(prop("alignItems"))("alignItems");
+export const getGridPlaceItems = getLiteral(prop("placeItems"))("placeItems");
+export const getAutoCols = getLiteral(prop("autoCols"))("grid-auto-columns");
+export const getAutoRows = getLiteral(prop("autoRows"))("grid-auto-rows");
+export const getAutoFlow = getLiteral(prop("autoFlow"))("grid-auto-flow");
+export const getGrid = getLiteral(prop("grid"))("grid");
