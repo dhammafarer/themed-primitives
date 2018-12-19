@@ -3,7 +3,7 @@ import { path, pathOr } from "ramda";
 
 type Prop = keyof Theme;
 
-const fromThemeScaled = (prop: Prop) => (theme: Theme) => (val: Scale) =>
+const fromThemeScaled = (prop: Prop) => (theme: Theme) => (val: any) =>
   path([prop, val], theme);
 
 const space = fromThemeScaled("sizes");

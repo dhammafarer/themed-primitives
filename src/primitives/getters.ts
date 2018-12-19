@@ -22,7 +22,7 @@ const getDirectionalProperty = getWithDirections(directionsMap)(
 export const getPadding = getDirectionalProperty("padding");
 export const getMargins = getDirectionalProperty("margin");
 
-const getFromColor = getResponsive(fns.color);
+export const getFromColor = getResponsive(fns.color);
 export const getBackground = getFromColor(prop("bg"))("background");
 export const getColor = getFromColor(prop("color"))("color");
 export const getBorderColor = getFromColor(prop("borderColor"))("border-color");
