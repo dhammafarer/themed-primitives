@@ -16,8 +16,8 @@ import {
 } from "../getters";
 
 interface ButtonProps extends BoxProps {
-  shadow?: Scale;
-  radius?: Scale;
+  shadow?: ResponsiveScale;
+  radius?: ResponsiveScale;
   b?: ResponsiveScale;
   borderColor?: ResponsiveString;
   fontFamily?: string;

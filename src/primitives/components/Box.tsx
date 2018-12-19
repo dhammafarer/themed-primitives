@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, css, Scale } from "../../theme";
+import { styled, css } from "../../theme";
 import {
   getPadding,
   getMargins,
@@ -9,23 +9,24 @@ import {
 } from "../getters";
 
 type ResponsiveString = string | string[];
-type ResponsiveScale = Scale | Scale[];
+type ResponsiveScale = number | number[];
+type ResponsiveEither = ResponsiveScale | ResponsiveString;
 
 interface SpaceProps {
-  p?: ResponsiveScale;
-  px?: ResponsiveScale;
-  py?: ResponsiveScale;
-  pr?: ResponsiveScale;
-  pl?: ResponsiveScale;
-  pt?: ResponsiveScale;
-  pb?: ResponsiveScale;
-  m?: ResponsiveScale;
-  mx?: ResponsiveScale;
-  my?: ResponsiveScale;
-  mr?: ResponsiveScale;
-  ml?: ResponsiveScale;
-  mt?: ResponsiveScale;
-  mb?: ResponsiveScale;
+  p?: ResponsiveEither;
+  px?: ResponsiveEither;
+  py?: ResponsiveEither;
+  pr?: ResponsiveEither;
+  pl?: ResponsiveEither;
+  pt?: ResponsiveEither;
+  pb?: ResponsiveEither;
+  m?: ResponsiveEither;
+  mx?: ResponsiveEither;
+  my?: ResponsiveEither;
+  mr?: ResponsiveEither;
+  ml?: ResponsiveEither;
+  mt?: ResponsiveEither;
+  mb?: ResponsiveEither;
 }
 
 const space = css<SpaceProps>`
@@ -48,8 +49,8 @@ const box = css<BoxProps>`
 `;
 
 interface BoxProps extends SpaceProps {
-  bg?: string;
-  color?: string;
+  bg?: ResponsiveString;
+  color?: ResponsiveString;
   width?: ResponsiveScale | ResponsiveString;
 }
 
@@ -78,4 +79,11 @@ const Box = styled(
   ${box}
 `;
 
-export { box, Box, BoxProps, ResponsiveString, ResponsiveScale };
+export {
+  box,
+  Box,
+  BoxProps,
+  ResponsiveString,
+  ResponsiveScale,
+  ResponsiveEither,
+};

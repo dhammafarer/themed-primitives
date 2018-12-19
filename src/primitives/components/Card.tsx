@@ -11,9 +11,9 @@ import {
 } from "../getters";
 
 interface CardProps extends FlexProps {
-  opacity?: number;
-  shadow?: Scale;
-  radius?: Scale;
+  opacity?: number | number[];
+  shadow?: ResponsiveScale;
+  radius?: ResponsiveScale;
   b?: ResponsiveScale;
   br?: ResponsiveScale;
   bl?: ResponsiveScale;
