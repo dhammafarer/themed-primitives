@@ -19,6 +19,7 @@ const numOrLiteral = (f: any) => (theme: any) =>
   ifElse(is(Number), f(theme), identity);
 
 const parseSpace = numOrLiteral(fns.space);
+const getResponsiveSpace = getResponsive(parseSpace);
 
 const getDirectionalProperty = getWithDirections(directionsMap)(defaultTheme)(
   responsiveTemplate
@@ -92,9 +93,9 @@ export const getTemplateAreas = getLiteral(prop("tmpAreas"))(
   "grid-template-rows"
 );
 export const getTemplate = getLiteral(prop("tmp"))("grid-template");
-export const getColGap = getLiteral(prop("colGap"))("grid-column-gap");
-export const getRowGap = getLiteral(prop("rowGap"))("grid-row-gap");
-export const getGap = getLiteral(prop("gap"))("grid-gap");
+export const getColGap = getResponsiveSpace(prop("colGap"))("grid-column-gap");
+export const getRowGap = getResponsiveSpace(prop("rowGap"))("grid-row-gap");
+export const getGap = getResponsiveSpace(prop("gap"))("grid-gap");
 export const getGridJustifyContent = getLiteral(prop("justifyContent"))(
   "justify-content"
 );
