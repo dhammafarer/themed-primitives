@@ -1,10 +1,12 @@
-import { Theme, Scale } from "./defaultTheme";
-import { path, pathOr } from "ramda";
+import { Theme } from "../theme";
+import { pathOr } from "ramda";
 
 type Prop = keyof Theme;
 
+const guard = pathOr("");
+
 const fromThemeScaled = (prop: Prop) => (theme: Theme) => (val: any) =>
-  path([prop, val], theme);
+  guard([prop, val])(theme);
 
 const space = fromThemeScaled("sizes");
 const fontSize = fromThemeScaled("fontSizes");
@@ -14,16 +16,9 @@ const shadow = fromThemeScaled("shadows");
 const zIndex = fromThemeScaled("zIndexes");
 const border = fromThemeScaled("borders");
 const radius = fromThemeScaled("radii");
-
-const fontFamily = (theme: Theme) => (val: "sans" | "serif") =>
-  theme.fonts[val];
-
-const lineHeight = (theme: Theme) => (val: "solid" | "title" | "copy") =>
-  theme.lineHeights[val];
-
-const letterSpacing = (theme: Theme) => (
-  val: "normal" | "tight" | "tracked" | "mega"
-) => theme.letterSpacings[val];
+const fontFamily = fromThemeScaled("fonts");
+const lineHeight = fromThemeScaled("lineHeights");
+const letterSpacing = fromThemeScaled("letterSpacings");
 
 const color = (theme: Theme) => (s: string) =>
   pathOr(s, s.split("."), theme.colors);

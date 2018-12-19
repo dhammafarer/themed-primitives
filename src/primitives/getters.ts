@@ -1,6 +1,6 @@
 import { getProperty } from "./getProperty";
 import { getWithDirections } from "./getWithDirections";
-import { fns } from "../theme/accessors";
+import { fns } from "./accessors";
 import { prop, is, gte, ifElse, identity } from "ramda";
 import { responsiveTemplate } from "./templates";
 

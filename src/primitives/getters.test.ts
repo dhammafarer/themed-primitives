@@ -1,6 +1,5 @@
 import { getWidth, getColor } from "./getters";
 
-import { fns } from "../theme/accessors";
 import { defaultTheme } from "../theme/defaultTheme";
 import { responsiveTemplate } from "./templates";
 import { prop } from "ramda";
