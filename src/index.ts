@@ -8,6 +8,8 @@ export {
   CardProps,
   Flex,
   FlexProps,
+  Grid,
+  GridProps,
   Text,
   TextProps,
 } from "./primitives";
