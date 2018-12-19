@@ -30,7 +30,6 @@ interface ButtonProps extends BoxProps {
 }
 
 const button = css<ButtonProps>`
-  font-family: ${props => props.theme.fonts.sans};
   text-decoration: none;
   cursor: pointer;
   ${box}

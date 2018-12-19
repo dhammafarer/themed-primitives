@@ -86,6 +86,7 @@ export {
   getPadding,
   getMargins,
   getFlexWrap,
+  getFlexDirection,
   getJustifyContent,
   getAlignItems,
   getBoxShadow,

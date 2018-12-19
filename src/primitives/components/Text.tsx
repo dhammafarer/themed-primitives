@@ -12,7 +12,6 @@ import {
 } from "../getters";
 
 const text = css<TextProps>`
-  font-family: ${props => props.theme.fonts.sans};
   ${box}
   ${props => css`
     ${getFontSize(props)}
