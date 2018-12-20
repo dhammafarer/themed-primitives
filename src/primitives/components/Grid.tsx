@@ -9,7 +9,6 @@ import {
   ResponsiveEither,
 } from "./Box";
 import {
-  getDisplay,
   getTemplateColumns,
   getTemplateRows,
   getTemplateAreas,
@@ -54,7 +53,6 @@ const grid = css<GridProps>`
   display: grid;
   ${box}
   ${props => css`
-    ${getDisplay(props)}
     ${getTemplateColumns(props)}
     ${getTemplateRows(props)}
     ${getTemplateAreas(props)}
@@ -77,7 +75,6 @@ const grid = css<GridProps>`
 
 const Grid = styled(
   ({
-    display,
     tmpCols,
     tmpRows,
     tmpAreas,

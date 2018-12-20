@@ -42,6 +42,7 @@ export const getBackground = fromColor(prop("bg"))("background");
 export const getBorderColor = fromColor(prop("borderColor"))("border-color");
 
 //misc
+export const getDisplay = getLiteral(prop("display"))("display");
 export const getBoxShadow = getResponsive(fns.shadow)(prop("shadow"))(
   "box-shadow"
 );
@@ -82,7 +83,6 @@ export const getJustifyContent = getLiteral(prop("justifyContent"))(
 export const getAlignItems = getLiteral(prop("alignItems"))("align-items");
 
 // grid
-export const getDisplay = getLiteral(prop("display"))("display");
 export const getTemplateColumns = getLiteral(prop("tmpCols"))(
   "grid-template-columns"
 );

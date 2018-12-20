@@ -3,6 +3,7 @@ import { styled, css } from "../../theme";
 import {
   getPadding,
   getMargins,
+  getDisplay,
   getBackground,
   getColor,
   getWidth,
@@ -42,6 +43,7 @@ const box = css<BoxProps>`
   padding: 0;
   ${space}
   ${props => css`
+    ${getDisplay(props)};
     ${getBackground(props)};
     ${getColor(props)};
     ${getWidth(props)};
@@ -51,6 +53,7 @@ const box = css<BoxProps>`
 interface BoxProps extends SpaceProps {
   bg?: ResponsiveString;
   color?: ResponsiveString;
+  display?: ResponsiveString;
   width?: ResponsiveScale | ResponsiveString;
 }
 
@@ -70,6 +73,7 @@ const Box = styled(
     ml,
     mt,
     mb,
+    display,
     bg,
     width,
     color,
