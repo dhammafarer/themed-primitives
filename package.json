@@ -1,6 +1,6 @@
 {
   "name": "themed-primitives",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "primitives based on a theme and styled-components",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",

@@ -52,6 +52,12 @@ const Button = styled(
   ({
     shadow,
     b,
+    bx,
+    by,
+    bt,
+    bb,
+    br,
+    bl,
     borderColor,
     radius,
     fontSize,

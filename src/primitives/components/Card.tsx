@@ -38,9 +38,20 @@ const card = css<CardProps>`
 `;
 
 const Card = styled(
-  ({ opacity, boxShadow, b, borderColor, radius, ...rest }) => (
-    <Flex {...rest} />
-  )
+  ({
+    opacity,
+    shadow,
+    b,
+    bx,
+    by,
+    bt,
+    bb,
+    br,
+    bl,
+    borderColor,
+    radius,
+    ...rest
+  }) => <Flex {...rest} />
 )<CardProps & React.HTMLProps<HTMLDivElement>>`
   ${card}
 `;
