@@ -23,7 +23,7 @@ export const devices = [
 ];
 
 const fonts = {
-  sans: "Muli",
+  sans: "sans",
   serif: "serif",
 };
 
